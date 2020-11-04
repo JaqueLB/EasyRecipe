@@ -9,6 +9,7 @@
 import UIKit
 
 class RecipesTableViewController: UITableViewController {
+    // TODO: put sections for types of recipes
     private var viewModel = RecipesViewModel()
 
     override func viewDidLoad() {
@@ -27,12 +28,6 @@ extension RecipesTableViewController {
         viewModel.didTapRecipe = { recipeDetailController in
             self.navigationController?.pushViewController(recipeDetailController, animated: true)
         }
-
-        let recipe1 = Recipe(name: "Scrambled Eggs", ingredients: ["2 eggs", "1 tbsp olive oil", "1/2 onion", "salt and pepper"], instructions: ["Heat the olive oil on a frying pan", "Chop the half onion as cubes", "Crack the eggs on a bowl and mix with the onions", "Season with salt and pepper", "Pour the mixture in the frying pan, and mix gently with a spatula, until the yolks are hard"])
-        let recipe2 = Recipe(name: "Easy Cookies", ingredients: ["1 baking mixture baunilha flavored", "Dark chocolate chips or 1 dark chocolate tablet", "1/2 cup oil", "2 eggs"], instructions: ["Mix the baking mixture with the eggs and the oil", "Cut the chocolate tablet into squared pieces and add to the mixture", "If you decided to use chocolate chips, just incorporate them in the dough", "Pre heat the oven for 10 min at 180C", "Grease the pan with oil and flour", "Using a ice cream spoon, distribute the dough on the pan", "Bake for 15 min or until golden colored"])
-
-        viewModel.populate(with: recipe1)
-        viewModel.populate(with: recipe2)
     }
 
     func setupNavigation() {
