@@ -11,6 +11,21 @@ import UIKit
 class RecipeDetailsViewController: UIViewController {
     var recipe: Recipe?
 
+    // imageView. é para set de propriedades da imageView, imageView.layer é para set de atributos
+    private lazy var backgroundImageView: UIImageView = {
+        var imageView = UIImageView()
+        imageView.image = UIImage(named: "recipebg")
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+
+    private lazy var scrollView: UIScrollView = {
+        var scrollView = UIScrollView()
+        scrollView.backgroundColor = .white
+        return scrollView
+    }()
+
     private lazy var ingredientsSectionLabel: UILabel = {
         var label = UILabel()
         label.text = "Ingredients"
@@ -51,6 +66,7 @@ class RecipeDetailsViewController: UIViewController {
         setupNavigation()
         setupIngredients()
         setupInstructions()
+        setupScroll()
         setupUi()
     }
 
@@ -94,36 +110,55 @@ class RecipeDetailsViewController: UIViewController {
         ingredientsTextView.text = string
     }
 
+    func setupScroll() {
+        scrollView.addSubview(backgroundImageView)
+        scrollView.addSubview(ingredientsSectionLabel)
+        scrollView.addSubview(ingredientsContentLabel)
+        scrollView.addSubview(instructionsSectionLabel)
+        scrollView.addSubview(instructionsContentLabel)
+
+        scrollView.subviews.forEach {(
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        )}
+        // se usar width na scroll view, todos os elementos tem que ter.
+        // ao usar width, todos os elementos precisam de um centerXAnchor definido
+        NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            backgroundImageView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.9),
+            backgroundImageView.heightAnchor.constraint(equalToConstant: 240),
+            backgroundImageView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+
+            ingredientsSectionLabel.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 16),
+            ingredientsSectionLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+
+            ingredientsContentLabel.topAnchor.constraint(equalTo: ingredientsSectionLabel.bottomAnchor, constant: 8),
+            ingredientsContentLabel.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.9),
+            ingredientsContentLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+
+            instructionsSectionLabel.topAnchor.constraint(equalTo: ingredientsContentLabel.bottomAnchor, constant: 8),
+            instructionsSectionLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+
+            instructionsContentLabel.topAnchor.constraint(equalTo: instructionsSectionLabel.bottomAnchor, constant: 8),
+            instructionsContentLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            instructionsContentLabel.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.9),
+            instructionsContentLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+        ])
+    }
+
     func setupUi() {
-        view.backgroundColor = .systemBackground
-
-        view.addSubview(ingredientsSectionLabel)
-        view.addSubview(ingredientsTextView)
-
-        view.addSubview(instructionsSectionLabel)
-        view.addSubview(instructionsTextView)
+        view.addSubview(scrollView)
 
         view.subviews.forEach {(
             $0.translatesAutoresizingMaskIntoConstraints = false
         )}
 
+        // scrollView sempre pinada na view, pelo menos o top, se não a navigation para de funcionar
         NSLayoutConstraint.activate([
-            ingredientsSectionLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            ingredientsSectionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-
-            ingredientsTextView.topAnchor.constraint(equalTo: ingredientsSectionLabel.bottomAnchor, constant: 4),
-            ingredientsTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            ingredientsTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            ingredientsTextView.heightAnchor.constraint(equalToConstant: 128),
-
-            instructionsSectionLabel.topAnchor.constraint(equalTo: ingredientsTextView.bottomAnchor, constant: 4),
-            instructionsSectionLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-
-            instructionsTextView.topAnchor.constraint(equalTo: instructionsSectionLabel.bottomAnchor, constant: 4),
-            instructionsTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            instructionsTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            instructionsTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0)
         ])
     }
-
 }
