@@ -19,8 +19,12 @@ class RecipesTableViewController: UITableViewController {
         setupNavigation()
         setupTableView()
     }
-}
 
+    // reset navigation when you hit back button
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavigation()
+    }
+}
 
 // MARK: methods
 extension RecipesTableViewController {
@@ -33,6 +37,13 @@ extension RecipesTableViewController {
     func setupNavigation() {
         navigationItem.title = "Recipes"
         navigationController?.navigationBar.prefersLargeTitles = true
+
+        let textAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.systemGray,
+        ]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        navigationController?.navigationBar.largeTitleTextAttributes = textAttributes
+        navigationController?.navigationBar.tintColor = .systemGray
     }
 
     func setupTableView() {
