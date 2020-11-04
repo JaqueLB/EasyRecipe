@@ -35,12 +35,12 @@ class RecipeDetailsViewController: UIViewController {
         return label
     }()
 
-    private lazy var ingredientsTextView: UITextView = {
-        var textView = UITextView()
-        textView.textColor = .black
-        textView.isScrollEnabled = true
-        textView.font = .italicSystemFont(ofSize: 14)
-        return textView
+    private lazy var ingredientsContentLabel: UILabel = {
+        var label = UILabel()
+        label.textColor = .black
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 16)
+        return label
     }()
 
     private lazy var instructionsSectionLabel: UILabel = {
@@ -52,12 +52,12 @@ class RecipeDetailsViewController: UIViewController {
         return label
     }()
 
-    private lazy var instructionsTextView: UITextView = {
-        var textView = UITextView()
-        textView.textColor = .black
-        textView.isScrollEnabled = true
-        textView.font = .systemFont(ofSize: 12)
-        return textView
+    private lazy var instructionsContentLabel: UILabel = {
+        var label = UILabel()
+        label.textColor = .black
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 14)
+        return label
     }()
 
     override func viewDidLoad() {
@@ -72,42 +72,36 @@ class RecipeDetailsViewController: UIViewController {
 
     func setupNavigation() {
         navigationItem.title = recipe?.name
+
+        let textAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.systemGray,
+        ]
+
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        navigationController?.navigationBar.largeTitleTextAttributes = textAttributes
+        navigationController?.navigationBar.tintColor = .systemGray
     }
 
     func setupInstructions() {
-        let bullet = "•  "
         guard let instructions = recipe?.instructions else { return }
-        let list = instructions.map { return bullet + $0 }
-
-        // understand this better
-        var attributes = [NSAttributedString.Key: Any]()
-        attributes[.font] = UIFont.preferredFont(forTextStyle: .body)
-        attributes[.foregroundColor] = UIColor.darkGray
-
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.headIndent = (bullet as NSString).size(withAttributes: attributes).width
-        attributes[.paragraphStyle] = paragraphStyle
-
-        let string = list.joined(separator: "\n\n")
-        instructionsTextView.text = string
+        let quote = instructions.joined(separator: ". ")
+        instructionsContentLabel.text = "\(quote)."
     }
 
     func setupIngredients() {
         let bullet = "•  "
         guard let ingredients = recipe?.ingredients else { return }
         let list = ingredients.map { return bullet + $0 }
+        let quote = list.joined(separator: "\n\n")
 
-        // understand this better
-        var attributes = [NSAttributedString.Key: Any]()
-        attributes[.font] = UIFont.preferredFont(forTextStyle: .body)
-        attributes[.foregroundColor] = UIColor.darkGray
+        ingredientsContentLabel.text = quote
 
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.headIndent = (bullet as NSString).size(withAttributes: attributes).width
-        attributes[.paragraphStyle] = paragraphStyle
-
-        let string = list.joined(separator: "\n\n")
-        ingredientsTextView.text = string
+//        let attributes: [NSAttributedString.Key: Any] = [
+//            .font: UIFont.preferredFont(forTextStyle: .body),
+//            .foregroundColor: UIColor.systemYellow
+//        ]
+//
+//        ingredientsContentLabel.attributedText = NSAttributedString(string: quote, attributes: attributes)
     }
 
     func setupScroll() {
