@@ -11,7 +11,7 @@ import UIKit
 class RecipesTableViewCell: UITableViewCell {
     private lazy var recipeNameLabel: UILabel = {
         var label = UILabel()
-        label.textColor = .systemPink
+        label.textColor = .systemPurple
         return label
     }()
 
@@ -35,7 +35,7 @@ class RecipesTableViewCell: UITableViewCell {
         recipeNameLabel.autoresizesSubviews = true
 
         NSLayoutConstraint.activate([
-            recipeNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            recipeNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             recipeNameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }

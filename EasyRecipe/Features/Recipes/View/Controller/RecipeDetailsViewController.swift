@@ -15,7 +15,8 @@ class RecipeDetailsViewController: UIViewController {
         var label = UILabel()
         label.text = "Ingredients"
         label.textAlignment = .center
-        label.textColor = .systemBlue
+        label.textColor = .systemPurple
+        label.font = .systemFont(ofSize: 20)
         return label
     }()
 
@@ -32,6 +33,7 @@ class RecipeDetailsViewController: UIViewController {
         label.text = "Instructions"
         label.textAlignment = .center
         label.textColor = .systemPurple
+        label.font = .systemFont(ofSize: 20)
         return label
     }()
 
