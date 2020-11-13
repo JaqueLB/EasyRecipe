@@ -26,14 +26,7 @@ class RecipeDetailsViewController: UIViewController {
         return scrollView
     }()
 
-    private lazy var ingredientsSectionLabel: UILabel = {
-        var label = UILabel()
-        label.text = "Ingredients"
-        label.textAlignment = .center
-        label.textColor = .systemPurple
-        label.font = .systemFont(ofSize: 20)
-        return label
-    }()
+    private lazy var ingredientsSectionLabel = CustomLabel()
 
     private lazy var ingredientsContentLabel: UILabel = {
         var label = UILabel()
@@ -43,14 +36,7 @@ class RecipeDetailsViewController: UIViewController {
         return label
     }()
 
-    private lazy var instructionsSectionLabel: UILabel = {
-        var label = UILabel()
-        label.text = "Instructions"
-        label.textAlignment = .center
-        label.textColor = .systemPurple
-        label.font = .systemFont(ofSize: 20)
-        return label
-    }()
+    private lazy var instructionsSectionLabel = CustomLabel()
 
     private lazy var instructionsContentLabel: UILabel = {
         var label = UILabel()
@@ -68,6 +54,7 @@ class RecipeDetailsViewController: UIViewController {
         setupInstructions()
         setupScroll()
         setupUi()
+        setupLabels()
     }
 
     func setupNavigation() {
@@ -94,6 +81,11 @@ class RecipeDetailsViewController: UIViewController {
 //        ]
 //
 //        ingredientsContentLabel.attributedText = NSAttributedString(string: quote, attributes: attributes)
+    }
+
+    func setupLabels() {
+        ingredientsSectionLabel.setupSection(text: "Ingredients")
+        instructionsSectionLabel.setupDefault(text: "Instructions", color: .systemGreen)
     }
 
     func setupScroll() {
