@@ -72,14 +72,6 @@ class RecipeDetailsViewController: UIViewController {
 
     func setupNavigation() {
         navigationItem.title = recipe?.name
-
-        let textAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.systemGray,
-        ]
-
-        navigationController?.navigationBar.titleTextAttributes = textAttributes
-        navigationController?.navigationBar.largeTitleTextAttributes = textAttributes
-        navigationController?.navigationBar.tintColor = .systemGray
     }
 
     func setupInstructions() {

@@ -15,6 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+        // MARK: Custom Nav Bar Config
+        UINavigationBar.appearance().prefersLargeTitles = true
+        UINavigationBar.appearance().tintColor = .systemGray
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.systemGray]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.systemGray]
         return true
     }
 
