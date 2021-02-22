@@ -22,7 +22,7 @@ class RecipeDetailsViewController: UIViewController {
 
     private lazy var scrollView: UIScrollView = {
         var scrollView = UIScrollView()
-        scrollView.backgroundColor = .white
+        scrollView.backgroundColor = .systemBackground
         return scrollView
     }()
 
@@ -30,7 +30,7 @@ class RecipeDetailsViewController: UIViewController {
 
     private lazy var ingredientsContentLabel: UILabel = {
         var label = UILabel()
-        label.textColor = .black
+        label.textColor = .label
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 16)
         return label
@@ -40,10 +40,15 @@ class RecipeDetailsViewController: UIViewController {
 
     private lazy var instructionsContentLabel: UILabel = {
         var label = UILabel()
-        label.textColor = .black
+        label.textColor = .label
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 14)
         return label
+    }()
+    
+    private lazy var editBarButton: UIBarButtonItem = {
+        var barButton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(editRecipe))
+        return barButton
     }()
 
     override func viewDidLoad() {
@@ -56,9 +61,14 @@ class RecipeDetailsViewController: UIViewController {
         setupUi()
         setupLabels()
     }
+    
+    @objc func editRecipe() {
+        print("edit Recipe")
+    }
 
     func setupNavigation() {
         navigationItem.title = recipe?.name
+        navigationItem.rightBarButtonItems = [editBarButton]
     }
 
     func setupInstructions() {

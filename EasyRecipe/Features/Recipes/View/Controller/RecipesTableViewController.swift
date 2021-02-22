@@ -11,6 +11,11 @@ import UIKit
 class RecipesTableViewController: UITableViewController {
     // TODO: put sections for types of recipes
     private var viewModel = RecipesViewModel()
+    
+    private lazy var addBarButton: UIBarButtonItem = {
+        var barButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addNewRecipe))
+        return barButton
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,10 +36,15 @@ extension RecipesTableViewController {
 
     func setupNavigation() {
         navigationItem.title = "Recipes"
+        navigationItem.rightBarButtonItems = [addBarButton]
     }
 
     func setupTableView() {
         tableView.register(RecipesTableViewCell.self, forCellReuseIdentifier: RecipesTableViewCell.reuseIdentifier)
+    }
+    
+    @objc func addNewRecipe() {
+        print("new Recipe")
     }
 }
 
